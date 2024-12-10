@@ -1,0 +1,20 @@
+{% extends 'base.html'%}
+
+{% block title %}About Me{%endblock%}
+{% block content %}
+
+<div class="container mt-4 mb-4 p-3 d-flex justify-content-center">
+    <div class="card p-4">
+        <div class=" image d-flex flex-column justify-content-center align-items-center">
+            <button class="btn btn-secondary">
+                <img height="100" width="100"  alt="Profile picture" src="{{ user.profile_picture.url }}">
+            </button>
+            <span class="name mt-3">{{user.first_name}} {{user.last_name}}</span>
+            <span class="idd">@{{user.username}}</span>
+            <span class="idd">{{user.email}}</span>
+            <div class="d-flex mt-2"><a class="btn btn-dark" href="{% url 'users:profile-edit' %}">edit profile</a></div>
+            <span class="join"> Joined at {{user.date_joined|date:'d M Y'}}</span>
+        </div>
+    </div>
+</div>
+{% endblock %}

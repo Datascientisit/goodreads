@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h3>All reviews</h3>
+
+{% for review in page_obj %}
+<div class="container posts-content">
+<div class="row">
+    <div class="col-lg-6">
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="media mb-3">
+          <img src="{{ review.user.profile_picture.url }}" class="just-pic" alt="">
+          <div class="media-body ml-3">
+            <b>{{ review.user.username }}</b> rated this book {{review.stars_given}} stars
+            <div class="text-muted small">{{review.created_at | date:"M, d, Y" }}</div>
+          </div>
+        </div>
+
+        <p>
+          {{review.comment | truncatechars:100}}
+        </p>
+            <img class="book-pic center" src="{{review.book.cover_picture.url}}">
+<!--        <a href="javascript:void(0)" class="ui-rect ui-bg-cover" style="background-image: url('https://bootdey.com/img/Content/avatar/avatar3.png');"></a>-->
+      </div>
+    </div>
+</div>
+
+</div>
+</div>
+{% endfor %}
+
+{% endblock %}

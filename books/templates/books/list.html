@@ -1,0 +1,60 @@
+{% extends 'base.html'%}
+
+{% block title %}book page{%endblock%}
+{% block content %}
+<h1>Books Page</h1>
+<div class="row mb-3">
+    <div class="col-4">
+        <form class="d-flex" method="get">
+            <input class="form-control me-2" type="text" placeholder="Search" name="q" value="{{ search_query }}">
+            <button class="btn btn-success">Search</button>
+        </form>
+    </div>
+</div>
+{% if page_obj %}
+        {% for book in page_obj.object_list %}
+            <div class="row mb-4">
+                <div class="col-2">
+                    <img class="book-pic" alt="cover image" src="{{book.cover_picture.url}}">
+                </div>
+
+                <div class="col-6">
+                    <a href="{% url 'books:detail' book.id %}">{{book.title}}</a>
+                    <p>
+                    {{book.describtion}}
+                    </p>
+                </div>
+            </div>
+        {% endfor %}
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-end">
+                <li class="page-item">
+                    {% if page_obj.has_previous %}
+                        <a class="page-link" href="{% url 'books:list' %}?page={{page_obj.previous_page_number}}">back</a>
+                    {% endif %}
+                </li>
+
+                <li class="page-item">
+                    {% if page_obj.has_previous and page_obj.has_next %}
+                        <a class="page-link" href="{% url 'books:list' %}?page={{page_obj.number}}">{{page_obj.number}}</a>
+                    {% endif %}
+                </li>
+
+                <li class="page-item">
+                    {% if page_obj.has_next %}
+                        <a class="page-link" href="{% url 'books:list' %}?page={{page_obj.next_page_number}}">next</a>
+                    {% endif %}
+                </li>
+            </ul>
+        </nav>
+<!--        {% if page_obj.has_previous %}-->
+<!--            <a class="" href="{% url 'books:list' %}?page={{page_obj.previous_page_number}}">back</a>-->
+<!--        {% endif %}-->
+<!--        {% if page_obj.has_previous and page_obj.has_next %}-->
+<!--            <a href="{% url 'books:list' %}?page={{page_obj.number}}">{{page_obj.number}}</a>-->
+<!--        {% endif %}-->
+<!--        {% if page_obj.has_next %}-->
+<!--            <a href="{% url 'books:list' %}?page={{page_obj.next_page_number}}">next</a>-->
+<!--        {% endif %}-->
+{% endif %}
+{% endblock %}
